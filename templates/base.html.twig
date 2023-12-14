@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" type="text/css" href="/style/app.css"/>
+        {% block stylesheets %}
+        {% endblock %}
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/popper.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/validate.js"></script>
+    </head>
+    <body>
+        {% include 'Menu/header.html.twig' %}
+        {# {% for label, message in app.flashes %} #}
+            <div class="container text-center">
+                {# <div class="alert alert-{{label}}"> #}
+                {# {% for message in message %} #}
+                    {# <p>{{message|raw}}</p> #}
+                {# {% endfor %} #}
+                </div>
+            </div>
+        {# {% endfor %} #}
+        {% block body %}
+        {% endblock %}  
+    </body>
+</html>

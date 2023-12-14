@@ -1,0 +1,43 @@
+{% if Box | length > 0 %} 
+    <table class="table table-striped table table-hover bg-success">
+        <thead class="text-white text-uppercase">
+            <tr>
+                <th >N°</th>
+                <th class="text-center">Loyer</th>
+                <th class="text-center">Sécurité</th>
+                <th class="text-center">Emplacement</th>
+                {# {% for roles in ap.userRoles %}
+                {% if roles|upper == "ROLE_USER" %}
+                th class=" fs-3 text-center">Action</th>
+                {% endif %}
+                {% endfor %} #}
+            </tr>
+        </thead>
+    {# {% set p = app.user %}#}
+    {% for box in Box %}
+        {# {% if p.Cours == i.Tpi %} #}
+        <tbody class="bg-white">
+            <tr>
+                <td>{{box.Num}}</td>
+                <td class="text-center"> {{box.Log|number_format(0, ',', ' ')}}</td>
+                <td class="text-center"> {{box.Log|upper}}</td>
+                {# {% for roles in ap.userRoles %}
+                {% if roles|upper == "ROLE_USER" %}
+                <td class="text-center col-1">
+                    <div class="container">
+                        {# <a href="{{path ('pnt_info',{'slug':i.id})}}" class="btn btn-sm"><i class="fas fa-print"></i></a>
+                        <a href="{{path ('pedit',{'slugpiece':i.slug})}}" class="btn btn-sm "><i class="fa-solid fa-pen-to-square text-success"></i></a>
+                        <a href="{{path ('iedit',{'sluginfo':i.info.slug})}}" class="btn btn-sm"><i class="fa-solid fa-pen-to-square text-success"></i></a>
+                        <a onclick="return confirm('Vous êtes sûr de la supprimer ?');" href="{{path ('del_info',{'slug':i.slug})}}" class="btn btn-sm"><i class="fas fa-trash text-danger"></i></a>
+                    </div>
+                <td>
+                {% endif %}
+                {% endfor %} #}
+            </tr>
+        </tbody>
+        {# {% endif %} #}
+    {% endfor %}
+    </table>
+{% else %}
+    <p class="h1 text-center text-danger text-uppercase"><em>Aucune demande enregistrée</em></p>
+{% endif %}
