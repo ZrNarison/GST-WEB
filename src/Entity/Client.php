@@ -36,7 +36,7 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $LieuDelivrance;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $FilliationPere;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -99,6 +99,11 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $Slug;
 
+    #[ORM\ManyToOne(targetEntity: Box::class, inversedBy: 'clients')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $Box;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,7 +116,7 @@ class Client
 
     public function setFname(string $Fname): self
     {
-        $this->Fname = $Fname;
+        $this->Fname = mb_strtoupper($Fname);
 
         return $this;
     }
@@ -147,7 +152,7 @@ class Client
 
     public function setLieuNaissance(string $LieuNaissance): self
     {
-        $this->LieuNaissance = $LieuNaissance;
+        $this->LieuNaissance = mb_strtoupper($LieuNaissance);
 
         return $this;
     }
@@ -183,7 +188,7 @@ class Client
 
     public function setLieuDelivrance(string $LieuDelivrance): self
     {
-        $this->LieuDelivrance = $LieuDelivrance;
+        $this->LieuDelivrance = mb_strtoupper($LieuDelivrance);
 
         return $this;
     }
@@ -195,7 +200,7 @@ class Client
 
     public function setFilliationPere(string $FilliationPere): self
     {
-        $this->FilliationPere = $FilliationPere;
+        $this->FilliationPere = mb_strtoupper($FilliationPere);
 
         return $this;
     }
@@ -207,7 +212,7 @@ class Client
 
     public function setFilliationMere(string $FilliationMere): self
     {
-        $this->FilliationMere = $FilliationMere;
+        $this->FilliationMere =  mb_strtoupper($FilliationMere);
 
         return $this;
     }
@@ -219,7 +224,7 @@ class Client
 
     public function setProfession(string $Profession): self
     {
-        $this->Profession = $Profession;
+        $this->Profession =  mb_strtoupper($Profession);
 
         return $this;
     }
@@ -255,7 +260,7 @@ class Client
 
     public function setAdresse(string $Adresse): self
     {
-        $this->Adresse = $Adresse;
+        $this->Adresse =  mb_strtoupper($Adresse);
 
         return $this;
     }
@@ -303,7 +308,7 @@ class Client
 
     public function setEpous(?string $Epous): self
     {
-        $this->Epous = $Epous;
+        $this->Epous =  mb_strtoupper($Epous);
 
         return $this;
     }
@@ -375,7 +380,7 @@ class Client
 
     public function setActivite(string $Activite): self
     {
-        $this->Activite = $Activite;
+        $this->Activite =  mb_strtoupper($Activite);
 
         return $this;
     }
@@ -411,7 +416,7 @@ class Client
 
     public function setMaterielUtiliser(?string $MaterielUtiliser): self
     {
-        $this->MaterielUtiliser = $MaterielUtiliser;
+        $this->MaterielUtiliser =  mb_strtoupper($MaterielUtiliser);
 
         return $this;
     }
@@ -436,6 +441,18 @@ class Client
     public function setSlug(string $Slug): self
     {
         $this->Slug = $Slug;
+
+        return $this;
+    }
+
+    public function getBox(): ?Box
+    {
+        return $this->Box;
+    }
+
+    public function setBox(?Box $Box): self
+    {
+        $this->Box = $Box;
 
         return $this;
     }

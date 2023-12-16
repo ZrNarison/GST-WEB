@@ -6,11 +6,11 @@
                 <th class="text-center">Loyer</th>
                 <th class="text-center">Sécurité</th>
                 <th class="text-center">Emplacement</th>
+                <th class="text-center text-danger text-uppercase">Action</th>
                 {# {% for roles in ap.userRoles %}
-                {% if roles|upper == "ROLE_USER" %}
-                th class=" fs-3 text-center">Action</th>
-                {% endif %}
-                {% endfor %} #}
+                {% if roles|upper == "ROLE_USER" %}#}
+                {# {% endif %}
+                {% endfor %}  #}
             </tr>
         </thead>
     {# {% set p = app.user %}#}
@@ -21,17 +21,16 @@
                 <td>{{box.Num}}</td>
                 <td class="text-center"> {{box.Log|number_format(0, ',', ' ')}}</td>
                 <td class="text-center"> {{box.Log|upper}}</td>
+                <td class="text-center"> {{box.SitBox.Situe|upper}}</td>
                 {# {% for roles in ap.userRoles %}
-                {% if roles|upper == "ROLE_USER" %}
-                <td class="text-center col-1">
+                {% if roles|upper == "ROLE_USER" %} #}
+                <td class="text-center col-2">
                     <div class="container">
-                        {# <a href="{{path ('pnt_info',{'slug':i.id})}}" class="btn btn-sm"><i class="fas fa-print"></i></a>
-                        <a href="{{path ('pedit',{'slugpiece':i.slug})}}" class="btn btn-sm "><i class="fa-solid fa-pen-to-square text-success"></i></a>
-                        <a href="{{path ('iedit',{'sluginfo':i.info.slug})}}" class="btn btn-sm"><i class="fa-solid fa-pen-to-square text-success"></i></a>
-                        <a onclick="return confirm('Vous êtes sûr de la supprimer ?');" href="{{path ('del_info',{'slug':i.slug})}}" class="btn btn-sm"><i class="fas fa-trash text-danger"></i></a>
+                        <a href="{{path ('editbox',{'slugbox':box.id})}}" class="float-start btn btn-sm "><i class="fa-solid fa-pen-to-square text-success"></i></a>
+                        <a onclick="return confirm('Vous êtes sûr de la supprimer ?');" href="{{path ('delbox',{'slug':box.id})}}" class="float-end btn btn-sm"><i class="fas fa-trash text-danger"></i></a>
                     </div>
                 <td>
-                {% endif %}
+                {# {% endif %}
                 {% endfor %} #}
             </tr>
         </tbody>

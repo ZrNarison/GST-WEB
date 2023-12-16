@@ -20,7 +20,7 @@ class JiramaType extends AppType
             ->add('JirBox',EntityType::class,[
                 'class'=>Box::class,
                 'label'=>'N° Box',
-                'placeholder' => "Veuillez séléctionner un box"
+                'placeholder' => "Veuillez séléctionner un box",
                 ])
             ->add('PresDate',DateType::class, $this->conf('Date prélevement'," ",["widget"=>"single_text"]))
             ->add('ValIndex',IntegerType::class, $this->conf('Index ','En chiffre',[

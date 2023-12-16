@@ -1,0 +1,39 @@
+{% if site | length > 0 %} 
+    <table class="table table-striped table table-hover bg-success">
+        <thead class="text-white text-uppercase">
+            <tr>
+                <th >N°</th>
+                <th class="text-center">situé</th>
+                {# {% for roles in ap.userRoles %}
+                {% if roles|upper == "ROLE_USER" %}#}
+                th class=" fs-3 text-center">Action</th>
+                {#{% endif %}
+                {% endfor %} #}
+            </tr>
+        </thead>
+    {# {% set p = app.user %}#}
+    {% for site in site %}
+        {# {% if p.Cours == i.Tpi %} #}
+        <tbody class="bg-white">
+            <tr>
+                {# <td>{{Jirama.Num}}</td> #}
+                <td class="text-center"> {{site.Id|number_format(0, ',', ' ')}}</td>
+                <td class="text-center"> {{site.Situe|upper}}</td>
+                {# {% for roles in ap.userRoles %}
+                {% if roles|upper == "ROLE_USER" %}#}
+                <td class="text-center col-3">
+                    <div class="container ">
+                        <a href="{{path ('siteedit',{'siteid':site.id})}}" class="btn btn-sm float-start"><i class="fa-solid fa-pen-to-square text-success"></i></a>
+                        <a onclick="return confirm('Vous êtes sûr de la supprimer ?');" href="{{path ('delsite',{'siteid':site.id})}}" class="btn btn-sm float-start"><i class="fas fa-trash text-danger"></i></a>
+                    </div>
+                <td>
+                {#{% endif %}
+                {% endfor %} #}
+            </tr>
+        </tbody>
+        {# {% endif %} #}
+    {% endfor %}
+    </table>
+{% else %}
+    <p class="h1 text-center text-danger text-uppercase"><em>Aucune demande enregistrée</em></p>
+{% endif %}

@@ -31,7 +31,7 @@ class Role
 
     public function setTitle(string $Title): self
     {
-        $this->Title = $Title;
+        $this->Title = mb_strtoupper($Title);
 
         return $this;
     }

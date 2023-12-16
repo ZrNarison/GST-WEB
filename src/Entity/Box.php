@@ -22,15 +22,22 @@ class Box
     private $Sec;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $Emplacement;
-
-    #[ORM\Column(type: 'string', length: 255)]
     private $Num;
 
     #[ORM\OneToMany(mappedBy: 'JirBox', targetEntity: Jirama::class, orphanRemoval: true)]
     private $JiramaBox;
 
-    public function __toString(): string
+    #[ORM\OneToOne(mappedBy: 'Box', targetEntity: Client::class, cascade: ['persist', 'remove'])]
+    private $client;
+
+    #[ORM\ManyToOne(targetEntity: Emplacement::class, inversedBy: 'boxes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $SitBox;
+
+    #[ORM\OneToMany(mappedBy: 'Box', targetEntity: Client::class, orphanRemoval: true)]
+    private $clients;
+
+    public function __toString()
     {
         return $this->getNum();
     }
@@ -38,6 +45,7 @@ class Box
     public function __construct()
     {
         $this->JiramaBox = new ArrayCollection();
+        $this->clients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,7 +60,7 @@ class Box
 
     public function setLog(string $Log): self
     {
-        $this->Log = $Log;
+        $this->Log = mb_strtoupper($Log);
 
         return $this;
     }
@@ -65,18 +73,6 @@ class Box
     public function setSec(float $Sec): self
     {
         $this->Sec = $Sec;
-
-        return $this;
-    }
-
-    public function getEmplacement(): ?string
-    {
-        return $this->Emplacement;
-    }
-
-    public function setEmplacement(string $Emplacement): self
-    {
-        $this->Emplacement = $Emplacement;
 
         return $this;
     }
@@ -117,6 +113,65 @@ class Box
             // set the owning side to null (unless already changed)
             if ($jiramaBox->getJirBox() === $this) {
                 $jiramaBox->setJirBox(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(Client $client): self
+    {
+        // set the owning side of the relation if necessary
+        if ($client->getBox() !== $this) {
+            $client->setBox($this);
+        }
+
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getSitBox(): ?Emplacement
+    {
+        return $this->SitBox;
+    }
+
+    public function setSitBox(?Emplacement $SitBox): self
+    {
+        $this->SitBox = $SitBox;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Client>
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(Client $client): self
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients[] = $client;
+            $client->setBox($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Client $client): self
+    {
+        if ($this->clients->removeElement($client)) {
+            // set the owning side to null (unless already changed)
+            if ($client->getBox() === $this) {
+                $client->setBox(null);
             }
         }
 

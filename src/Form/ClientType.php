@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Box;
 use App\Form\AppType;
 use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,13 +22,13 @@ class ClientType extends AppType
             ->add('Fname',TextType::class, $this->conf('Nom',"Tapez ici le nom cu client"))
             ->add('Lname',TextType::class, $this->conf('Prénom',"Prénom"))
             ->add('DateNaissance',DateType::class, $this->conf('Date de naissance'," ",["widget"=>"single_text"]))
-            ->add('LieuNaissance',TextType::class, $this->conf('Prénom',"Prénom"))
+            ->add('LieuNaissance',TextType::class, $this->conf('Lieu de naissance',"Lieu de naissance"))
             ->add('PieceJustificatif')
             ->add('DateDelivrance',DateType::class, $this->conf('Date de délivrance'," ",["widget"=>"single_text"]))
             ->add('LieuDelivrance',TextType::class, $this->conf('Lieu de délivrance',"Lieu de délivrance"))
-            ->add('FilliationPere',TextType::class, $this->conf('Date de délivrance',"Date de délivrance"))
-            ->add('FilliationMere',TextType::class, $this->conf('Nom du père',"Filliation père"))
-            ->add('Profession',TextType::class, $this->conf('Nom du mère',"Filliation mère"))
+            ->add('Profession',TextType::class, $this->conf('Profession',"Profession"))
+            ->add('FilliationPere',TextType::class, $this->conf('Nom du père',"Filliation père",["required"=>false]))
+            ->add('FilliationMere',TextType::class, $this->conf('Nom du mère',"Filliation mère"))
             ->add('DateVente',DateType::class, $this->conf('Date de vente'," ",["widget"=>"single_text"]))
             ->add('Caution',IntegerType::class, $this->conf('Caution ','En chiffre',[
                 'required'=>false,
@@ -40,8 +42,8 @@ class ClientType extends AppType
             ->add('Adresse',TextType::class, $this->conf('Adresse',"Adresse"))
             ->add('Telephone')
             ->add('Email',EmailType::class, $this->conf('Email',"Adress email"))
-            ->add('SituationFamille',TextType::class, $this->conf('Prénom',"Prénom"))
-            ->add('Epous',TextType::class, $this->conf('Epous(se)',"Nom de l'épous(se)"))
+            ->add('SituationFamille',TextType::class, $this->conf('Situation Famille',"Situation familliale"))
+            ->add('Epous',TextType::class, $this->conf('Epous(se)',"Nom de l'épous(se)",["required"=>false]))
             ->add('Enfants',IntegerType::class, $this->conf("Nombre d'enfants",'En chiffre',[
                 'required'=>false,
                 'attr'=>[
@@ -87,20 +89,30 @@ class ClientType extends AppType
                     'step'=>0
                     ]
             ]))
-            ->add('Activite',TextType::class, $this->conf('Prénom',"Prénom"))
+            ->add('Activite',TextType::class, $this->conf('Activite',"Activite"))
             ->add('RoleActivite')
             ->add('NombreResponsable',IntegerType::class, $this->conf('NB Responsable ','En chiffre',[
                 'required'=>true,
                 'attr'=>[
-                    'placeholder'=>'En chiffre',
                     'min'=>1,
                     'max'=>5,
                     'step'=>0
                     ]
             ]))
-            ->add('MaterielUtiliser',TextType::class, $this->conf('Prénom',"Prénom"))
-            ->add('DureeMateriel')
-            // ->add('boxes')
+            ->add('MaterielUtiliser',TextType::class, $this->conf('Ouvrage',"Materiel utiliser"))
+            ->add('DureeMateriel',IntegerType::class, $this->conf('Durée (mois)','En chiffre',[
+                'required'=>false,
+                'attr'=>[
+                    'min'=>1,
+                    'max'=>9999999999999999999999999999999,
+                    'step'=>0
+                    ]
+            ]))
+            ->add('Box',EntityType::class,[
+                'class'=>Box::class,
+                'label'=>'N° Box',
+                'placeholder' => "Veuillez séléctionner un box"
+                ])
         ;
     }
 

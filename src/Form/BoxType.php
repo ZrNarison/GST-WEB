@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Box;
 use App\Form\AppType;
+use App\Entity\Emplacement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -42,7 +44,11 @@ class BoxType extends AppType
                     'step'=>0
                     ]
             ]))
-            ->add('Emplacement',TextType::class, $this->conf('Emplacement',"Tapez ici l'emplacment"))
+            ->add('SitBox',EntityType::class,[
+                'class'=>Emplacement::class,
+                'label'=>'Emplacement',
+                'placeholder' => "Veuillez séléctionner l'emplacement du box"
+                ])
         ;
     }
 
