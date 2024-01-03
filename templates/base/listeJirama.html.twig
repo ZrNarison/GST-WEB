@@ -4,7 +4,6 @@
             <tr>
                 <th >BOX</th>
                 <th class="text-center">Rélever</th>
-                {# <th class="text-center">Sécurité</th> #}
                 <th class="text-center">Index</th>
                 <th class="text-center">Facture</th>
                 <th class="text-center">Consommation</th>
@@ -20,22 +19,21 @@
         {# {% if p.Cours == i.Tpi %} #}
         <tbody class="bg-white">
             <tr>
-                <td class="text-center"> {{Jirama.JirBox.Num|number_format(0, ',', ' ')}}</td>
+                <td class="text-center"> {{Jirama.JirBox}}</td>
                 <td class="text-center"> {{Jirama.PresDate|date('d-m-Y')}}</td>
                 <td class="text-center"> {{Jirama.ValIndex|number_format(0, ',', ' ')}}</td>
                 <td class="text-center"> {{Jirama.FactDate|date('d-m-Y')}}</td>
                 <td class="text-center"> {{Jirama.Consomation|number_format(0, ',', ' ')}}</td>
                 {# {% for roles in ap.userRoles %}
-                {% if roles|upper == "ROLE_USER" %}
-                <td class="text-center col-1">
+                {% if roles|upper == "ROLE_USER" %}#}
+                <td class="text-center">
                     <div class="container">
-                        {# <a href="{{path ('pnt_info',{'slug':i.id})}}" class="btn btn-sm"><i class="fas fa-print"></i></a>
-                        <a href="{{path ('pedit',{'slugpiece':i.slug})}}" class="btn btn-sm "><i class="fa-solid fa-pen-to-square text-success"></i></a>
-                        <a href="{{path ('iedit',{'sluginfo':i.info.slug})}}" class="btn btn-sm"><i class="fa-solid fa-pen-to-square text-success"></i></a>
-                        <a onclick="return confirm('Vous êtes sûr de la supprimer ?');" href="{{path ('del_info',{'slug':i.slug})}}" class="btn btn-sm"><i class="fas fa-trash text-danger"></i></a>
+                        <a href="{{path ('jiroedit',{'jiro':Jirama.id})}}" class="btn btn-sm"><i class="fa-solid fa-pen-to-square text-success"></i></a>
+                        <a href="{{path ('app_print',{'slug':Jirama.slug})}}" class="btn btn-sm"><i class="fas fa-print"></i></a>
+                        <a onclick="return confirm('Vous êtes sûr de la supprimer ?');" href="{{path ('deljirama',{'jiroid':Jirama.id})}}" class="btn btn-sm"><i class="fas fa-trash text-danger"></i></a>
                     </div>
                 <td>
-                {% endif %}
+                {#{% endif %}
                 {% endfor %} #}
             </tr>
         </tbody>
@@ -43,5 +41,5 @@
     {% endfor %}
     </table>
 {% else %}
-    <p class="h1 text-center text-danger text-uppercase"><em>Aucune demande enregistrée</em></p>
+    <p class="h1 text-center text-danger text-uppercase mt-5"><em>Aucun enregistrement trouvé</em></p>
 {% endif %}

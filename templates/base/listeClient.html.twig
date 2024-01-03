@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block head %}{% endblock  %}
+{% block body %}
+{# {% form_theme form _self  %} #}
+    {% if client | length > 0 %} 
+        <table class="table table-striped table table-hover bg-success mt-5">
+            <thead class="text-white text-uppercase">
+                <tr class="text-center">
+                    <th >BOX</th>
+                    <th >Nom</th>
+                    <th class="text-center">Profession</th>
+                    <th class="text-center">Vente</th>
+                    <th class="text-center">téléphone</th>
+                    <th class="text-center">email</th>
+                    <th class="text-center">responsable</th>
+                    <th class="text-center">Materiél U</th>
+                    {# {% for roles in ap.userRoles %}
+                    {% if roles|upper == "ROLE_USER" %}#}
+                    <th class=" fs-3 text-center">Action</th>
+                    {# {% endif %}
+                    {% endfor %}  #}
+                </tr>
+            </thead>
+        {# {% set p = app.user %}#}
+        {% for client in client %}
+            {# {% if p.Cours == i.Tpi %} #}
+            <tbody class="bg-white">
+                <tr>
+                    <td class="text-center"> {{client.Box}}</td>
+                    <td class="text-center"> {{client.Fname|upper}} {{client.Lname}}</td>
+                    <td class="text-center"> {{client.Profession|upper}}</td>
+                    <td class="text-center"> {{client.DateVente|date('d-m-Y')}}</td>
+                    <td class="text-center"> {{client.Telephone|number_format(0, ',', ' ')}}</td>
+                    <td class="text-center"> {{client.email}}</td>
+                    <td class="text-center"> {{client.NombreResponsable|number_format(0, ',', ' ')}}</td>
+                    <td class="text-center"> {{client.MaterielUtiliser|upper}}</td>
+                    {# {% for roles in ap.userRoles %}
+                    {% if roles|upper == "ROLE_USER" %}#}
+                    <td class="text-center">
+                        <div class="container">
+                            <a href="{{path ('ClientEdit',{'slug':client.slug})}}" class="btn btn-sm"><i class="fa-solid fa-pen-to-square text-success"></i></a>
+                            {# <a href="{{path ('app_print',{'slug':Jirama.slug})}}" class="btn btn-sm"><i class="fas fa-print"></i></a> #}
+                            <a onclick="return confirm('Vous êtes sûr de la supprimer ?');" href="{{path ('delClient',{'Slug':client.id})}}" class="btn btn-sm"><i class="fas fa-trash text-danger"></i></a> #}
+                        </div>
+                    <td>
+                    {#{% endif %}
+                    {% endfor %} #}
+                </tr>
+            </tbody>
+            {# {% endif %} #}
+        {% endfor %}
+        </table>
+    {% else %}
+        <p class="h1 text-center text-danger text-uppercase mt-5"><em>Aucun enregistrement trouvé</em></p>
+    {% endif %}
+{% endblock %}

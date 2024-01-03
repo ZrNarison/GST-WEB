@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Box;
 use App\Form\AppType;
-use App\Entity\Client;
 use App\Entity\Jirama;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,16 +12,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class JiramaType extends AppType
+class EditJiramaType extends AppType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('JirBox',EntityType::class,[
-                'class'=>Client::class,
-                'label'=>'N° Box',
-                'placeholder' => "Veuillez séléctionner un box",
-                ])
+            // ->add('JirBox',EntityType::class,[
+            //     'class'=>Box::class,
+            //     'label'=>'N° Box',
+            //     'placeholder' => "Veuillez séléctionner un box",
+            //     ])
             ->add('PresDate',DateType::class, $this->conf('Date prélevement'," ",["widget"=>"single_text"]))
             ->add('ValIndex',IntegerType::class, $this->conf('Index ','En chiffre',[
                 'required'=>true,

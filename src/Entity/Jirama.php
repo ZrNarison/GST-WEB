@@ -25,7 +25,10 @@ class Jirama
     #[ORM\Column(type: 'float')]
     private $Consomation;
 
-    #[ORM\ManyToOne(targetEntity: Box::class, inversedBy: 'JiramaBox')]
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Slug;
+
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'jiramas')]
     #[ORM\JoinColumn(nullable: false)]
     private $JirBox;
 
@@ -82,12 +85,24 @@ class Jirama
         return $this;
     }
 
-    public function getJirBox(): ?Box
+    public function getSlug(): ?string
+    {
+        return $this->Slug;
+    }
+
+    public function setSlug(string $Slug): self
+    {
+        $this->Slug = $Slug;
+
+        return $this;
+    }
+
+    public function getJirBox(): ?Client
     {
         return $this->JirBox;
     }
 
-    public function setJirBox(?Box $JirBox): self
+    public function setJirBox(?Client $JirBox): self
     {
         $this->JirBox = $JirBox;
 

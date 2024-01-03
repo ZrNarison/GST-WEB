@@ -11,18 +11,19 @@
         <script type="text/javascript" src="/js/popper.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/validate.js"></script>
+        <script type="text/javascript" src="/js/app.js"></script>
     </head>
     <body>
         {% include 'Menu/header.html.twig' %}
-        {# {% for label, message in app.flashes %} #}
-            <div class="container text-center">
-                {# <div class="alert alert-{{label}}"> #}
-                {# {% for message in message %} #}
-                    {# <p>{{message|raw}}</p> #}
-                {# {% endfor %} #}
+        {% for label, message in app.flashes %}
+            <div class=" mt-1 mb-0 container text-center">
+                <div class="alert alert-{{label}}">
+                {% for message in message %}
+                    <p class="mt-0 mb-0">{{message|raw}}</p>
+                {% endfor %}
                 </div>
             </div>
-        {# {% endfor %} #}
+        {% endfor %}
         {% block body %}
         {% endblock %}  
     </body>

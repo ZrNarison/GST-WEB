@@ -2,19 +2,20 @@
 {% block head %}{% endblock  %}
 {% block body %}
 {% form_theme form _self  %}
-<div class="container col-12 mt-3">
+<div class="container col-12 mt-5">
     <div class="row card col-4 float-start">
-        <div class="panel-primary bg-info fs-2 text-center text-uppercase">Box</div>
+        <div class="panel-primary bg-info fs-2 text-center text-uppercase">JIRAMA</div>
         <div class="body col-md-12">
             <div class="form-group mt-3">
-                {{ include ('base/data.html.twig', {form: form,button:('Enregistrer')} )}}
+                {{ include ('base/data.html.twig', {form: form,button:('Valider')} )}}
             </div>
         </div>
     </div>
+    <div class="float-end col-1"></div>
     <div class="float-end">
         <div class="body col-md-12">
             <div class="form-group mt-0">
-                {{ include ('base/listeBox.html.twig')}}
+                {{ include ('base/listeJirama.html.twig')}}
             </div>
         </div>
     </div>

@@ -2,12 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Box;
 use App\Form\AppType;
 use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,12 +13,12 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class ClientType extends AppType
+class EditClientType extends AppType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Fname',TextType::class, $this->conf('Nom',"Tapez ici le nom cu client"))
+        ->add('Fname',TextType::class, $this->conf('Nom',"Tapez ici le nom cu client"))
             ->add('Lname',TextType::class, $this->conf('Prénom',"Prénom",["required"=>false]))
             ->add('DateNaissance',DateType::class, $this->conf('Date de naissance'," ",["widget"=>"single_text"]))
             ->add('LieuNaissance',TextType::class, $this->conf('Lieu de naissance',"Lieu de naissance"))
@@ -115,11 +113,6 @@ class ClientType extends AppType
                     'step'=>0
                     ]
             ]))
-            ->add('Box',EntityType::class,[
-                'class'=>Box::class,
-                'label'=>'N° Box',
-                'placeholder' => "Veuillez séléctionner un box"
-                ])
         ;
     }
 

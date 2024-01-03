@@ -1,0 +1,237 @@
+{% block body %}
+<div class="example-wrapper">
+    <h1 class="text-center mb-0">{{param.societe|upper}}</h1>
+    <h2 class="text-center mt-0">{{param.localisation|upper}}</h2>
+</div>
+<div class="">
+    <div class="">Doit à: (Mr/Mme){{client.Fname|upper}} {{client.Lname}}</div>
+    <div class="">Adresse: {{client.Adresse|upper}}</div>
+    <div class="">Contact: {{client.Telephone}}</div>
+    <div class="">Box : {{client.Box}}</div>
+    <table class="container col-12">
+        <thead>
+            <th class="col-6"></th>
+            <th class="text-center col-3"><strong>Date</strong></th>
+            <th class="text-center col-3"><strong>Valeur index</strong></th>
+        </thead>
+        <tbody>
+            <td class="col-6">Nouvelle</td>
+            <td class="text-center col-3">{{jirama.FactDate|date('d/m/Y')}}</td>
+            <td class="text-center col-3">{{jirama.Consomation}}</td>
+        </tbody>
+        <tbody>
+            <td class="col-6">Ancien</td>
+            <td class="text-center col-3">{{jirama.PresDate|date('d/m/Y')}}</td>
+            <td class="text-center col-3">{{jirama.ValIndex}}</td>
+        </tbody>
+    </table>
+</div>
+<div class="col-12">Arrêté la présente facture à la somme de<strong> {{Net|upper}}</strong> Ariary <strong>({{valnet|number_format(2, ',', ' ')}}</strong>Ar)</div>
+{% endblock %}
+<style>
+    .ud{text-decoration:underline}
+        .d-block{display:block}
+        .d-iblock{display:inline-block}
+        .header,.body,.footer{margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px;
+            /*border:1px solid green*/
+        }
+        .collapse{
+            border:1px solid black
+        }
+        .col-1 {
+  flex: 0 0 auto;
+  width: 8.33333333%;
+}
+
+.col-2 {
+  flex: 0 0 auto;
+  width: 16.66666667%;
+}
+
+.col-3 {
+  flex: 0 0 auto;
+  width: 25%;
+}
+
+.col-4 {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+}
+
+.col-5 {
+  flex: 0 0 auto;
+  width: 41.66666667%;
+}
+
+.col-6 {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+.col-7 {
+  flex: 0 0 auto;
+  width: 58.33333333%;
+}
+
+.col-8 {
+  flex: 0 0 auto;
+  width: 66.66666667%;
+}
+
+.col-9 {
+  flex: 0 0 auto;
+  width: 75%;
+}
+
+.col-10 {
+  flex: 0 0 auto;
+  width: 83.33333333%;
+}
+
+.col-11 {
+  flex: 0 0 auto;
+  width: 91.66666667%;
+}
+
+.col-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+input{border:none !important}
+
+        .mt{margin-top:0%}
+        .success{color:green}
+        .danger{color:red}
+        .ml{margin-left:50%;margin-right:0%}
+        .card{margin-left:0%;}
+        .col-lg-4{margin-left:2%;margin-right:0%}
+        .col-lg-4x{margin-left:70%;margin-right:0%}
+        .col-lg-12{margin-left:20%;margin-right:10%}
+        .col-lg-12x{margin-left:8%;margin-right:15%}
+        .col-4{margin-left:0%;margin-right:65%}
+        .col-4x{margin-left:0%;margin-right:100%}
+        .col-12{margin-left:0%;margin-right:0%}
+        .float-start{float:left}
+        .float-end{float:right}
+        .float-none{float:none; display:block}
+        .text-center{text-align:center}
+        .text-left{text-align:left}
+        .spacer{margin-left:0%;margin-right:23%}
+        .tb{border:1px solid black;border-collapse:collapse;}
+        table{border-collapse: collapse;}
+        th,td{border: 1px solid black;}
+        .container{float:left}
+        .mt-0 {
+  margin-top: 0 !important;
+}
+
+.mt-1 {
+  margin-top: 0.25rem !important;
+}
+
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.mt-5 {
+  margin-top: 3rem !important;
+}
+
+.mt-auto {
+  margin-top: auto !important;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem !important;
+}
+.mb-2 {margin-bottom: 0.5rem !important;}
+.mb-3 {margin-bottom: 1rem !important;}
+.mb-4 {margin-bottom: 1.5rem !important;}
+.mb-5 {margin-bottom: 3rem !important;}
+.mb-auto {margin-bottom: auto !important;}
+.tr{border:2px solid red}
+.tg{border:2px solid green}
+.tb{border:2px solid black}
+.ml-1{margin-left:60%}
+.ml-1x{margin-left:70%}
+.ml-2{margin-left:95%}
+.ml-2x{margin-left:75%}
+.ml-3{margin-left:100%}
+.mr-2x{margin-right:100%}
+.mlx-2{margin-left:78%;margin-right:auto}
+.mr-1{margin-right:25%}
+.w{width:100%}
+.h{height:6%}
+.up{text-transform: uppercase;} 
+img{width:50px;height:50px}
+.col-1 {
+  flex: 0 0 auto;
+  width: 8.33333333%;
+}
+
+.col-2 {
+  flex: 0 0 auto;
+  width: 16.66666667%;
+}
+
+.col-3 {
+  flex: 0 0 auto;
+  width: 25%;
+}
+
+.col-4 {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+}
+
+.col-5 {
+  flex: 0 0 auto;
+  width: 41.66666667%;
+}
+
+.col-6 {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+.col-7 {
+  flex: 0 0 auto;
+  width: 58.33333333%;
+}
+
+.col-8 {
+  flex: 0 0 auto;
+  width: 66.66666667%;
+}
+
+.col-9 {
+  flex: 0 0 auto;
+  width: 75%;
+}
+
+.col-10 {
+  flex: 0 0 auto;
+  width: 83.33333333%;
+}
+
+.col-11 {
+  flex: 0 0 auto;
+  width: 91.66666667%;
+}
+
+.col-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+</style>

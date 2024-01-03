@@ -103,6 +103,21 @@ class Client
     #[ORM\JoinColumn(nullable: false)]
     private $Box;
 
+    #[ORM\OneToMany(mappedBy: 'JirBox', targetEntity: Jirama::class, orphanRemoval: true)]
+    private $jiramas;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Pj;
+
+    public function __construct()
+    {
+        $this->jiramas = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getBox();
+    }
 
     public function getId(): ?int
     {
@@ -453,6 +468,48 @@ class Client
     public function setBox(?Box $Box): self
     {
         $this->Box = $Box;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Jirama>
+     */
+    public function getJiramas(): Collection
+    {
+        return $this->jiramas;
+    }
+
+    public function addJirama(Jirama $jirama): self
+    {
+        if (!$this->jiramas->contains($jirama)) {
+            $this->jiramas[] = $jirama;
+            $jirama->setJirBox($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJirama(Jirama $jirama): self
+    {
+        if ($this->jiramas->removeElement($jirama)) {
+            // set the owning side to null (unless already changed)
+            if ($jirama->getJirBox() === $this) {
+                $jirama->setJirBox(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPj(): ?string
+    {
+        return $this->Pj;
+    }
+
+    public function setPj(string $Pj): self
+    {
+        $this->Pj = $Pj;
 
         return $this;
     }
