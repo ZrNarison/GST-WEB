@@ -1,20 +1,49 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello SecurityController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Dos/src/Controller/SecurityController.php'|file_link(0) }}">src/Controller/SecurityController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Dos/templates/security/index.html.twig'|file_link(0) }}">templates/security/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}GST{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="/style/app.css"/>
+        {% block stylesheets %}{% endblock %}
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/popper.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/validate.js"></script>
+        <script type="text/javascript" src="/js/login.js"></script>   
+        {% block javascript %}{% endblock %}
+    </head>
+    <body>
+	{% block body %}		
+	{% if MesErreur %}
+		<div class="text-danger text-center mt-5 fs-2">Utilisateur ou mot de passe invalide !</div>
+	{% endif %}
+		<div class="container spacer col-md-4 col-xs-12 col-md-offset-3 rounded"  id="login">
+        	<div class="panel-heading panel-body">
+			<div class="panel-primary mt-2 text-center text-success fs-3 text-bold "><strong>LOGIN</strong></div>
+			<div class="panel-body col-md-12 mb-2 container">
+				<form action="{{path('login')}}" method="POST" id="formlogin">
+					<div class="panel-body mb-4">
+						<div class="form-group">
+							<label class="control-label text-white">Utilisateur :</label>
+							<input type="text" name="_username" id="pseudologin" class="form-control text-center" placeholder="Entre le nom d'utilisateur" value="{{uti}}" />
+						</div>
+						<div class="form-group">
+							<label class="control-label text-white">Mot de pass</label>
+							<input type="password" name="_password" id="passwordlogin" class="form-control text-center" placeholder="Tapez ici vos mot de pass" />
+							<i class="fa-solid fa-eye float-end" id="logineye"></i>
+						</div>
+						<div class="form-group ">
+							<a href="{{path('reset')}}" class="text-decoration-none"><i class="text-white ">Mot de passe oublié ?</i></a>
+						</div>
+						<div  class="form-group">
+							<button  id="btn-action" class="btn btn-success mb-3 mt-4 col-lg-4" name="button" background-color="blue">Se Connecter</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+</body>

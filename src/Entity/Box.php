@@ -18,9 +18,6 @@ class Box
     #[ORM\Column(type: 'string', length: 255)]
     private $Log;
 
-    #[ORM\Column(type: 'float')]
-    private $Sec;
-
     #[ORM\Column(type: 'string', length: 255)]
     private $Num;
 
@@ -64,19 +61,6 @@ class Box
 
         return $this;
     }
-
-    public function getSec(): ?float
-    {
-        return $this->Sec;
-    }
-
-    public function setSec(float $Sec): self
-    {
-        $this->Sec = $Sec;
-
-        return $this;
-    }
-
     public function getNum(): ?string
     {
         return $this->Num;

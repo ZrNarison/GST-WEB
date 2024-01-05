@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -15,13 +19,22 @@ class User
 
     #[ORM\Column(type: 'string', length: 255)]
     private $Pseudo;
+    
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Photo;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $MDP;
+    
+    public $Confirmation;
 
     #[ORM\OneToOne(targetEntity: Role::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private $Role;
+    private $userRole;
+
+    // public function __construct()
+    // {
+    //     $this->userRole = new ArrayCollection;
+    // }
 
     public function getId(): ?int
     {
@@ -39,6 +52,17 @@ class User
 
         return $this;
     }
+    public function getPhoto(): ?string
+    {
+        return $this->Photo;
+    }
+
+    public function setPhoto(string $Photo): self
+    {
+        $this->Photo = $Photo;
+
+        return $this;
+    }
 
     public function getMDP(): ?string
     {
@@ -51,15 +75,29 @@ class User
 
         return $this;
     }
+    public function getRoles(){
+        $roles = ($this->userRole)->getTitle();
+        return [$roles];
+    }
+        
+    public function getPassword(){
+        return $this->MDP;
+    }
+    public function getUsername(){
+        return $this->Pseudo;
+    }
+    public function eraseCredentials(){}
+    
+    public function getSalt(){}
 
-    public function getRole(): ?Role
+    public function getUserRole(): ?role
     {
-        return $this->Role;
+        return $this->userRole;
     }
 
-    public function setRole(Role $Role): self
+    public function setUserRole(?role $userRole): self
     {
-        $this->Role = $Role;
+        $this->userRole = $userRole;
 
         return $this;
     }

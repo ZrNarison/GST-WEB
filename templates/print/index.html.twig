@@ -1,14 +1,16 @@
 {% block body %}
-<div class="example-wrapper">
+  <div class="example-wrapper">
+    <img src="/img/CCV.jpg">
     <h1 class="text-center mb-0">{{param.societe|upper}}</h1>
     <h2 class="text-center mt-0">{{param.localisation|upper}}</h2>
-</div>
-<div class="">
+  </div>
+  <div class="mb-4">
     <div class="">Doit à: (Mr/Mme){{client.Fname|upper}} {{client.Lname}}</div>
     <div class="">Adresse: {{client.Adresse|upper}}</div>
     <div class="">Contact: {{client.Telephone}}</div>
     <div class="">Box : {{client.Box}}</div>
-    <table class="container col-12">
+    <div class="tbx">
+      <table class=" col-12">
         <thead>
             <th class="col-6"></th>
             <th class="text-center col-3"><strong>Date</strong></th>
@@ -22,18 +24,63 @@
         <tbody>
             <td class="col-6">Ancien</td>
             <td class="text-center col-3">{{jirama.PresDate|date('d/m/Y')}}</td>
-            <td class="text-center col-3">{{jirama.ValIndex}}</td>
+            <td class="text-center col-3 mb-2">{{jirama.ValIndex}}</td>
         </tbody>
-    </table>
-</div>
-<div class="col-12">Arrêté la présente facture à la somme de<strong> {{Net|upper}}</strong> Ariary <strong>({{valnet|number_format(2, ',', ' ')}}</strong>Ar)</div>
+      </table>
+        <div class="col-12 mb-2 mt-1">
+          <table class="col-8">
+            <td class="tt col-6"></td>
+            <td class="tt">Consommation</td>
+            <td class="tt">{{jirama.Consomation - jirama.ValIndex}}</td>
+          </table>
+        </div>
+      <table class="col-12 mt-3">
+        <thead>
+          <div class="col-12 tt"></div>
+          <th>Prix unitaire</th>
+          <th>Montant</th>
+        </thead>
+        <tbody class="text-center">
+          <div class="col-12 tt"></div>
+          <td>{{param.Courant}}</td>
+          <td>{{param.Courant * (jirama.Consomation - jirama.ValIndex)}}</td>
+        </tbody>  
+      </table>
+      <table class="mt-5">
+        <tr>
+          <td class="text-left tt">Prime fixe</td>
+          <td class="text-right tt">{{param.PrimeFixe|number_format(2, ',', ' ')}}</td>
+        </tr>      
+      </table>
+      <table>
+        <tr> 
+          <td class="text-left tt">Taxe </td>
+          <td class="text-right tt">{{taxe|number_format(2, ',', ' ')}}</td>
+          </tr>      
+      </table>
+      <table>
+        <tr>    
+          <td class="text-left up tt">net à payer</td>
+          <td class="text-right tt">{{NetPayer|number_format(2, ',', ' ')}}</td> 
+        </tr>      
+      </table>      
+    </div>
+    </img>
+  <div class="container mt-4">Arrêté la présente facture à la somme de<strong> {{Net|upper}}</strong> ARIARY <strong>({{NetPayer|number_format(2, ',', ' ')}}</strong>Ar)</div>
+  <div class="mt-4 text-center">--------------------------------------------------------------------------</div>
+  <div class="mb-4">
+    <div class="">Doit à: (Mr/Mme){{client.Fname|upper}} {{client.Lname}}</div>
+    <div class="">Adresse: {{client.Adresse|upper}}</div>
+    <div class="">Contact: {{client.Telephone}}</div>
+    <div class="">Box : {{client.Box}}</div>
+    <div class="">Facture mois : {{jirama.FactDate|date('m/Y')}}</div>
+  <div class="container mt-4">Arrêté la présente facture à la somme de<strong> {{Net|upper}}</strong> ARIARY <strong>({{NetPayer|number_format(2, ',', ' ')}}</strong>Ar)</div>
 {% endblock %}
 <style>
     .ud{text-decoration:underline}
         .d-block{display:block}
         .d-iblock{display:inline-block}
         .header,.body,.footer{margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px;
-            /*border:1px solid green*/
         }
         .collapse{
             border:1px solid black
@@ -116,10 +163,13 @@ input{border:none !important}
         .float-none{float:none; display:block}
         .text-center{text-align:center}
         .text-left{text-align:left}
+        .text-right{text-align:right}
         .spacer{margin-left:0%;margin-right:23%}
         .tb{border:1px solid black;border-collapse:collapse;}
+        .tbx{border:2px solid black;border-collapse:collapse;}
         table{border-collapse: collapse;}
         th,td{border: 1px solid black;}
+        .tbd{border: 1px solid black;}
         .container{float:left}
         .mt-0 {
   margin-top: 0 !important;
@@ -163,6 +213,7 @@ input{border:none !important}
 .tr{border:2px solid red}
 .tg{border:2px solid green}
 .tb{border:2px solid black}
+.tt{border:2px solid transparent}
 .ml-1{margin-left:60%}
 .ml-1x{margin-left:70%}
 .ml-2{margin-left:95%}

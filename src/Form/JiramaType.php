@@ -23,13 +23,13 @@ class JiramaType extends AppType
                 'label'=>'N° Box',
                 'placeholder' => "Veuillez séléctionner un box",
                 ])
-            ->add('PresDate',DateType::class, $this->conf('Date prélevement'," ",["widget"=>"single_text"]))
+            ->add('PresDate',DateType::class, $this->conf('Date rélevement'," ",["widget"=>"single_text"]))
             ->add('ValIndex',IntegerType::class, $this->conf('Index ','En chiffre',[
                 'required'=>true,
                 'attr'=>[
                     'placeholder'=>'En chiffre',
                     'min'=>1,
-                    'max'=>250,
+                    'max'=>99999999999,
                     'step'=>0
                     ]
             ]))
@@ -39,7 +39,7 @@ class JiramaType extends AppType
                 'attr'=>[
                     'placeholder'=>'En chiffre',
                     'min'=>1,
-                    'max'=>250,
+                    'max'=>9999999999,
                     'step'=>0
                     ]
             ]))

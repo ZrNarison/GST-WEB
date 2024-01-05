@@ -28,7 +28,7 @@ class EditJiramaType extends AppType
                 'attr'=>[
                     'placeholder'=>'En chiffre',
                     'min'=>1,
-                    'max'=>250,
+                    'max'=>999999999999,
                     'step'=>0
                     ]
             ]))
@@ -38,7 +38,7 @@ class EditJiramaType extends AppType
                 'attr'=>[
                     'placeholder'=>'En chiffre',
                     'min'=>1,
-                    'max'=>250,
+                    'max'=>99999999999,
                     'step'=>0
                     ]
             ]))

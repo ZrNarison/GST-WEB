@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Box;
 use App\Form\BoxType;
+use App\Entity\Filtre;
+use App\Form\FilterType;
 use App\Form\JiramaType;
 use App\Form\EditBoxType;
 use App\Form\EditClientType;
@@ -21,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EditController extends AbstractController
 {
     #[Route('/edit', name: 'app_edit')]
+    #[Security("is_granted('ROLE_USER') or ('ROLE_SUPERADMIN')")]
     public function index(): Response
     {
         return $this->render('edit/index.html.twig', [
@@ -29,6 +32,7 @@ class EditController extends AbstractController
     }
 
     #[Route('/Box-edit{slug}', name:'editbox')]
+    #[Security("is_granted('ROLE_USER') or ('ROLE_SUPERADMIN')")]
     public function Editbox(string $slug,BoxRepository $Box,Request $request,$page=0)
     {
         $limite =9;
@@ -53,6 +57,7 @@ class EditController extends AbstractController
     }
 
     #[Route('/Emplacement{siteid}edit', name:'siteedit')]
+    #[Security("is_granted('ROLE_USER') or ('ROLE_SUPERADMIN')")]
     public function EditSite(string $siteid,EmplacementRepository $Site,Request $request)
     {
         
@@ -87,12 +92,16 @@ class EditController extends AbstractController
     }
 
     #[Route('/Jirama{jiro}', name:'jiroedit')]
-    public function Editjirama(string $jiro,JiramaRepository $Jiro,Request $request)
+    #[Security("is_granted('ROLE_USER') or is_granted('ROLE_SUPERADMIN')")]
+    public function Editjirama(string $jiro,JiramaRepository $Jirama,Request $request)
     {
-        $limite = 10;
-        $OldJiro= $Jiro ->findOneBy(['id'=>$jiro]);
+        $limite = 5;
+        $Box = new Filtre (); 
+        $filtre = $this -> createForm(FilterType::class,$Box);
+        $OldJiro= $Jirama ->findOneBy(['id'=>$jiro]);
         $form = $this -> createForm(EditJiramaType::class,$OldJiro);
         $form ->handleRequest($request);
+        $filtre ->handleRequest($request);
         if($form->isSubmitted()){
             $manager = $this -> getDoctrine()->getManager();
             $manager -> persist($OldJiro);
@@ -103,16 +112,26 @@ class EditController extends AbstractController
             // );
             return $this->redirectToRoute('JiramaBox'); 
         }
-        $Jirama=$Jiro->findBy([],[],$limite,0);
-        return $this->render('edit/AdJirama.html.twig', [
+        if($filtre->isSubmitted()){
+            $Datebox=($filtre->get('DateFilter')->getData())->getFactDate();
+            $Jirama =$Jirama->findBy(['FactDate'=> $Datebox]);
+            return $this->render('home/AdJirama.html.twig', [
+                "Jirama"=>$Jirama,
+                'form'=> $form->createView(),
+                'filtre'=> $filtre->createView()
+            ]);
+        }
+        $Jirama=$Jirama->findBy([],[],$limite,0);    
+        return $this->render('home/AdJirama.html.twig', [
             "Jirama"=>$Jirama,
-            "OldJiro"=>$OldJiro,
-            'form'=> $form->createView()
+            'form'=> $form->createView(),
+            'filtre'=> $filtre->createView()
         ]);
     }
 
 
     #[Route('/Client{slug}', name:'ClientEdit')]
+    #[Security("is_granted('ROLE_USER') or is_granted('ROLE_SUPERADMIN')")]
     public function Editclient(string $slug,ClientRepository $Client,Request $request)
     {
         $limite = 10;

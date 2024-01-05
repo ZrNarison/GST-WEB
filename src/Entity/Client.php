@@ -21,31 +21,31 @@ class Client
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Lname;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date', nullable: true)]
     private $DateNaissance;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 25, nullable: true)]
     private $LieuNaissance;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $PieceJustificatif;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date', nullable: true)]
     private $DateDelivrance;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $LieuDelivrance;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $FilliationPere;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $FilliationMere;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Profession;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date', nullable: true)]
     private $DateVente;
 
     #[ORM\Column(type: 'float', nullable: true)]
@@ -81,13 +81,13 @@ class Client
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $CompteBanque;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Activite;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $RoleActivite;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $NombreResponsable;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -106,8 +106,11 @@ class Client
     #[ORM\OneToMany(mappedBy: 'JirBox', targetEntity: Jirama::class, orphanRemoval: true)]
     private $jiramas;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Pj;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $SlugClient;
 
     public function __construct()
     {
@@ -510,6 +513,18 @@ class Client
     public function setPj(string $Pj): self
     {
         $this->Pj = $Pj;
+
+        return $this;
+    }
+
+    public function getSlugClient(): ?string
+    {
+        return $this->SlugClient;
+    }
+
+    public function setSlugClient(string $SlugClient): self
+    {
+        $this->SlugClient = $SlugClient;
 
         return $this;
     }

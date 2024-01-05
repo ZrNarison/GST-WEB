@@ -32,6 +32,11 @@ class Jirama
     #[ORM\JoinColumn(nullable: false)]
     private $JirBox;
 
+    public function __toString()
+    {
+        return $this->getFactDate()->Format('d/m/Y');
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -22,21 +22,21 @@ class ClientType extends AppType
         $builder
             ->add('Fname',TextType::class, $this->conf('Nom',"Tapez ici le nom cu client"))
             ->add('Lname',TextType::class, $this->conf('Prénom',"Prénom",["required"=>false]))
-            ->add('DateNaissance',DateType::class, $this->conf('Date de naissance'," ",["widget"=>"single_text"]))
-            ->add('LieuNaissance',TextType::class, $this->conf('Lieu de naissance',"Lieu de naissance"))
+            ->add('DateNaissance',DateType::class, $this->conf('Date de naissance'," ",["widget"=>"single_text","required"=>false]))
+            ->add('LieuNaissance',TextType::class, $this->conf('Lieu de naissance',"Lieu de naissance",["required"=>false]))
             ->add('Piecejustificatif',ChoiceType::class,array(
                 "choices"=>array(
                     "Acte de naissance"=> "Acte de naissance" ,
                     "Carte d'Identité National"=>"Carte d'Identité National",
                 )
-            ))
-            ->add("Pj",TextType::class,$this->conf("N°:","Réference du piéce"))
-            ->add('DateDelivrance',DateType::class, $this->conf('Date de délivrance'," ",["widget"=>"single_text"]))
-            ->add('LieuDelivrance',TextType::class, $this->conf('Lieu de délivrance',"Lieu de délivrance"))
+            ),["required"=>false])
+            ->add("Pj",TextType::class,$this->conf("N°:","Réference du piéce",["required"=>false]))
+            ->add('DateDelivrance',DateType::class, $this->conf('Date de délivrance'," ",["widget"=>"single_text","required"=>false]))
+            ->add('LieuDelivrance',TextType::class, $this->conf('Lieu de délivrance',"Lieu de délivrance",["required"=>false]))
             ->add('Profession',TextType::class, $this->conf('Profession',"Profession"))
             ->add('FilliationPere',TextType::class, $this->conf('Nom du père',"Filliation père",["required"=>false]))
-            ->add('FilliationMere',TextType::class, $this->conf('Nom du mère',"Filliation mère"))
-            ->add('DateVente',DateType::class, $this->conf('Date de vente'," ",["widget"=>"single_text"]))
+            ->add('FilliationMere',TextType::class, $this->conf('Nom du mère',"Filliation mère",["required"=>false]))
+            ->add('DateVente',DateType::class, $this->conf('Date de vente'," ",["widget"=>"single_text","required"=>false]))
             ->add('Caution',IntegerType::class, $this->conf('Caution ','En chiffre',[
                 'required'=>false,
                 'attr'=>[

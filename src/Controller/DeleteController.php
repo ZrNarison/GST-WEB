@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DeleteController extends AbstractController
 {
     #[Route('/deleteBox{slug}', name: 'delbox')]
+    #[Security("is_granted('ROLE_USER') or is_granted('ROLE_SUPERADMIN')")]
     public function deletebox(string $slug,BoxRepository $Box,ClientRepository $Client,JiramaRepository $jirama,Request $request,$page=0): Response
     {
         $manager = $this -> getDoctrine()->getManager();
@@ -27,6 +28,7 @@ class DeleteController extends AbstractController
     }
 
     #[Route('/deleteEmplacement{siteid}', name: 'delsite')]
+    #[Security("is_granted('ROLE_USER') or is_granted('ROLE_SUPERADMIN')")]
     public function delsite(string $siteid,BoxRepository $Box,EmplacementRepository $emplacement): Response
     {
         
@@ -38,6 +40,7 @@ class DeleteController extends AbstractController
     }
 
     #[Route('/deletejirama{jiroid}', name: 'deljirama')]
+    #[Security("is_granted('ROLE_USER') or is_granted('ROLE_SUPERADMIN')")]
     public function deljiro(string $jiroid,JiramaRepository $jirama,EmplacementRepository $emplacement): Response
     {
         
@@ -49,6 +52,7 @@ class DeleteController extends AbstractController
     }
 
     #[Route('/deleteClient{Slug}', name: 'delClient')]
+    #[Security("is_granted('ROLE_USER') or is_granted('ROLE_SUPERADMIN')")]
     public function delclient(string $Slug,ClientRepository $Client,JiramaRepository $jirama): Response
     {
         
@@ -61,10 +65,7 @@ class DeleteController extends AbstractController
             $manager->remove($OldClient);
             $manager->flush();
         }else{
-            $this->addFlash(
-                    "",
-                    "<h2>Impossible de supprimer le client, car il avait une autre !</h2>"
-                );
+            $this->addFlash("","<h2>Impossible de supprimer le client, car il avait une autre !</h2>");
         }
         return $this->redirectToRoute('ListeClient');
     }

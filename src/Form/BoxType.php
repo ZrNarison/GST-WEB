@@ -30,17 +30,8 @@ class BoxType extends AppType
                 'required'=>true,
                 'attr'=>[
                     'placeholder'=>'En chiffre',
-                    'min'=>100000,
-                    'max'=>450000,
-                    'step'=>0
-                    ]
-            ]))
-            ->add('Sec',IntegerType::class, $this->conf('Coût du Sécurité ','En chiffre',[
-                'required'=>true,
-                'attr'=>[
-                    'placeholder'=>'En chiffre',
                     'min'=>50000,
-                    'max'=>250000,
+                    'max'=>900000,
                     'step'=>0
                     ]
             ]))

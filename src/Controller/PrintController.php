@@ -15,27 +15,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PrintController extends AbstractController
 {
     #[Route('facture{slug}/print', name: 'app_print')]
+    #[Security("is_granted('ROLE_USER') or is_granted('ROLE_SUPERADMIN')")]
     public function index(string $slug, ClientRepository $Client,JiramaRepository $Jirama,ParamettreRepository $Params)
     {
         $NbLettre = new NumberConverter();
         $jiramabox= $Jirama->findOneBy(['Slug'=>$slug]);
-        $param= $Params->findAll();
+        $param = $Params->findAll();
         // $Numbox=$jiramabox->getJirBox();
         $clientBox = $Client->findOneBy(['id'=>$jiramabox->getJirBox()]);
-        $valnet = ($jiramabox->getConsomation() - $jiramabox->getValIndex())* 250;
-        $Net=$NbLettre->numberToWord($valnet);
-        foreach ($param as $param) {
-
-        }
+        foreach ($param as $param) {}
+        $valnet = ($jiramabox->getConsomation() - $jiramabox->getValIndex());
+        $taxe=((($param->getSJirama()+$param->getSSP()+$param->getTva())* $valnet*100)/ ($param->getConsommation()))/100;
+        $NetPayer = ($taxe + $param->getPrimeFixe()+$valnet);
+        $coutNet= ($param->getCourant() * $valnet)+$param->getPrimeFixe();
+        $Net=$NbLettre->numberToWord($NetPayer);
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         $dompdf = new Dompdf($pdfOptions);
-        // dd($jiramabox,$clientBox);
         $html =$this->renderView('print/index.html.twig', [
             'jirama' => $jiramabox,
             'client' => $clientBox,
             'param' => $param,
             'Net' => $Net,
+            'taxe' => $taxe,
+            'NetPayer' => $NetPayer,
             'valnet' => $valnet,
         ]);
         $dompdf->loadHtml($html);

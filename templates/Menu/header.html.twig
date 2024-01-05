@@ -1,5 +1,5 @@
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-info  rounded navbar-responsive sticky-top">
+{% set ap = app.user %}
+<nav class="row navbar navbar-expand-lg navbar-dark bg-success  rounded navbar-responsive sticky-top">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -9,6 +9,7 @@
                 <li class="nav-item" id="acc">
                     <a class="nav-link active" href="{{path ('app_home')}}"><i class="fa-solid fa-house"></i>Acceuil</a>
                 </li>
+            {% if ap.userRole.Title == "ROLE_USER" %}
                 <li class="nav-item dropdown"><a href="{{path ('Adbox')}}" class="nav-link"><i class="fa-solid fa-cart-plus"></i>BOX</a></li>
                 <li class="nav-item dropdown"><a href="{{path ('JiramaBox')}}" class="nav-link"><i class="fa-solid fa-cart-plus"></i>JIRAMA</a></li>
                 <li class="nav-item dropdown" ><a href="#" class="nav-link dropdown-toggle"id="factureDropdownlink" data-bs-toggle="dropdown"><i class="fa-solid fa-cart-plus"></i>CLIENT</a>
@@ -17,11 +18,31 @@
                         <a class="dropdown-item float-start" href="{{path ('ListeClient')}}"  role="button"  aria-expanded="false"><i class="fa-sharp fa-solid fa-newspaper"></i>Liste</a>
                     </div>
                 </li>
+            {% endif %}
                 <li class="nav-item" id="param"><a class="nav-link" href="#"><i class="fa-solid fa-gears"></i>DEPENSE</a></li>
                 <li class="nav-item dropdown" ><a href="#" class="nav-link dropdown-toggle"id="factureDropdownlink" data-bs-toggle="dropdown"><i class="fa-solid fa-cart-plus"></i>AUTRE</a>
                     <div class="dropdown-menu dropdown-menu col-2" aria-labelledby="factureDropdownlink1">
+                        {% if ap.userRole.Title == "ROLE_USER" %}
                         <a class="dropdown-item float-start" href="{{path ('Site')}}" id="newDropdownlink" role="button" aria-expanded="false"><i class="fa-sharp fa-solid fa-newspaper"></i>EMPLACEMENT</a>
-                        <a class="dropdown-item float-start" href="#"  role="button"  aria-expanded="false"><i class="fa-sharp fa-solid fa-newspaper"></i>PARAMETTRE</a>
+                        {% endif %}
+                        {% if ap.userRole.Title == "ROLE_ADMIN" %}
+                        <a class="dropdown-item float-start" href="{{path ('Paramettre')}}"  role="button"  aria-expanded="false"><i class="fa-sharp fa-solid fa-newspaper"></i>PARAMETTRE</a>
+                        <a class="dropdown-item float-start" href="{{path ('Role')}}"  role="button"  aria-expanded="false"><i class="fa-sharp fa-solid fa-newspaper"></i>ROLE</a>
+                        <a class="dropdown-item float-start" href="{{path ('user')}}"  role="button"  aria-expanded="false"><i class="fa-sharp fa-solid fa-newspaper"></i>UTILISATEUR</a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto col-lg-auto" >
+                <li class="nav-item dropdown " id="profil">
+                    <a class="text-bold nav-link dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="prl"><img src="/img/user/{{ap.Photo}}" class="rounded" id="photoprofil">{{ap.Pseudo|upper}}</a>
+                    <div class="dropdown-menu col-1" id="myprofil">
+                        <a class="dropdown-item" href="{{path ('Moduser')}}">Mon profil</a>
+                        <a class="dropdown-item" href="{{path ('ModPass')}}">Mot de passe</a>
+                        {# <a class="dropdown-item" href="#">Aide</a>
+                        <a class="dropdown-item" href="#">A propos</a> #}
+                        <a class="dropdown-item" href="{{path ('ModImage')}}">Ma photo</a>
+                        <a class="dropdown-item text-danger text-bold"  href="{{path ('exit')}}" id="prm">Déconnexion</a>
                     </div>
                 </li>
             </ul>

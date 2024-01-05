@@ -13,46 +13,43 @@ class Paramettre
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Societe;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Representant;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Localisation;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Adresse;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Responsable;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Entete;
-
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $Courant;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $SJirama;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $SSP;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $Redevence;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $PrimeFixe;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $Redv;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $Consommation;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $Tva;
 
     public function getId(): ?int
@@ -67,7 +64,7 @@ class Paramettre
 
     public function setSociete(string $Societe): self
     {
-        $this->Societe = $Societe;
+        $this->Societe =  mb_strtoupper($Societe);
 
         return $this;
     }
@@ -79,7 +76,7 @@ class Paramettre
 
     public function setRepresentant(string $Representant): self
     {
-        $this->Representant = $Representant;
+        $this->Representant =  mb_strtoupper($Representant);
 
         return $this;
     }
@@ -91,7 +88,7 @@ class Paramettre
 
     public function setLocalisation(string $Localisation): self
     {
-        $this->Localisation = $Localisation;
+        $this->Localisation =  mb_strtoupper($Localisation);
 
         return $this;
     }
@@ -103,7 +100,7 @@ class Paramettre
 
     public function setAdresse(string $Adresse): self
     {
-        $this->Adresse = $Adresse;
+        $this->Adresse =  mb_strtoupper($Adresse);
 
         return $this;
     }
@@ -115,22 +112,11 @@ class Paramettre
 
     public function setResponsable(string $Responsable): self
     {
-        $this->Responsable = $Responsable;
+        $this->Responsable =  mb_strtoupper($Responsable);
 
         return $this;
     }
 
-    public function getEntete(): ?string
-    {
-        return $this->Entete;
-    }
-
-    public function setEntete(string $Entete): self
-    {
-        $this->Entete = $Entete;
-
-        return $this;
-    }
 
     public function getCourant(): ?float
     {

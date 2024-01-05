@@ -8,3 +8,9 @@
     border: 1px solid greenyellow;
 }
 .alert p,h2{color: red}
+#photouser{width: 30px;height: 30px;}
+#photoprofil{width: 30px;height: 30px;}
+#login{margin-top: 100px;display: block;background-color: rgb(25, 111, 106);}
+#logineye{margin-top: -25px;margin-left:380px;position:absolute;display: block;}
+#logineye.active::before{content: "\f070";}
+#oldimage{width: 80px;}
