@@ -19,6 +19,7 @@ class FilterType extends AppType
             ->add('DateFilter',EntityType::class,[
                 'class'=>Jirama::class,
                 'label'=>false,
+                'group_by'=>'FactDate',
                 'placeholder' => "Veuillez séléctionner une date"
                 ])
         ;
